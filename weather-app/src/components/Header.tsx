@@ -1,6 +1,14 @@
+import { useState } from "react";
 
 
 const Header = () => {
+
+    const [isClickedUnits, setIsClickedUnits] =  useState(false);
+
+    function HandleUnitsClick(){
+        setIsClickedUnits(!isClickedUnits);
+    }
+
   return (
     <div className="w-full ">
       
@@ -9,13 +17,13 @@ const Header = () => {
             <img src="/public/logo.svg" alt="logo"  className="h-7"/>
         </div>
 
-        <div className="bg-[#3d3b5e] flex justify-center items-center gap-2 px-3 py-1 rounded-lg cursor-pointer">
+        <div className="bg-[#3d3b5e] flex justify-center items-center gap-2 px-3 py-1 rounded-lg cursor-pointer" onClick={HandleUnitsClick}>
             <img src="/public/icon-units.svg" alt="settings" />
             <p className="text-white">Units</p>
             <img src="/public/icon-dropdown.svg" alt="icon" />
         </div>
 
-        <div className="bg-[#3d3b5e] absolute top-10 right-0 rounded-lg px-4 py-3 flex flex-col justify-start items-start gap-2">
+        {isClickedUnits && (<div className="bg-[#3d3b5e] absolute top-10 right-0 rounded-lg px-4 py-3 flex flex-col justify-start items-start gap-2 duration-300">
             <p className="text-white">Switch to Imperial</p>
 
             <div className="flex flex-col justify-start items-start gap-2  divide-y-[0.1px] divide-slate-300">
@@ -37,7 +45,7 @@ const Header = () => {
                 <p className="text-white font-semibold py-1">Inches (in)</p>
             </div>
             </div>
-        </div>
+        </div>)}
       </section>
 
       <h1 className="text-white text-center text-6xl font-bold mt-8 leading-tight">
