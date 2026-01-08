@@ -1,4 +1,5 @@
 import CurrentWeather from "./components/CurrentWeather"
+import DailyForecast from "./components/DailyForecast"
 import Header from "./components/Header"
 import Search from "./components/Search"
 
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <Search />
       <CurrentWeather />
+      <DailyForecast />
     </div>
   )
 }
