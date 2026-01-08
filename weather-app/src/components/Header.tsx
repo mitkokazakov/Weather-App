@@ -1,13 +1,14 @@
 import { useState } from "react";
 
-
-const Header = () => {
+const Header = ({handleUnitsChange}: {handleUnitsChange: (unit: string, value: string) => void}) => {
 
     const [isClickedUnits, setIsClickedUnits] =  useState(false);
 
     function HandleUnitsClick(){
         setIsClickedUnits(!isClickedUnits);
     }
+
+    
 
   return (
     <div className="w-full ">
@@ -29,20 +30,20 @@ const Header = () => {
             <div className="flex flex-col justify-start items-start gap-2  divide-y-[0.1px] divide-slate-300">
                 <div className=" flex flex-col w-full">
                 <p className="text-sm text-slate-300">Temperature</p>
-                <p className="text-white font-semibold py-1">Celsius (C)</p>
-                <p className="text-white font-semibold py-1">Fahrenheit (F)</p>
+                <p className="text-white font-semibold py-1" onClick={() => {handleUnitsChange("temperature","Celsius"); ; HandleUnitsClick()}}>Celsius (C)</p>
+                <p className="text-white font-semibold py-1" onClick={() => {handleUnitsChange("temperature","Fahrenheit"); HandleUnitsClick()}}>Fahrenheit (F)</p>
             </div>
 
             <div className=" flex flex-col w-full">
                 <p className="text-slate-300 text-sm">Wind Speed</p>
-                <p className="text-white font-semibold py-1">km/h</p>
-                <p className="text-white font-semibold py-1">mph</p>
+                <p className="text-white font-semibold py-1" onClick={() => {handleUnitsChange("windSpeed","km/h"); HandleUnitsClick()}}>km/h</p>
+                <p className="text-white font-semibold py-1" onClick={() => {handleUnitsChange("windSpeed","mph"); HandleUnitsClick()}}>mph</p>
             </div>
 
             <div className=" flex flex-col w-full">
                 <p className="text-slate-300 text-sm">Precipitation</p>
-                <p className="text-white font-semibold py-1">Millimeters (mm)</p>
-                <p className="text-white font-semibold py-1">Inches (in)</p>
+                <p className="text-white font-semibold py-1" onClick={() => {handleUnitsChange("precipitation","Millimeters (mm)"); HandleUnitsClick()}}>Millimeters (mm)</p>
+                <p className="text-white font-semibold py-1" onClick={() => {handleUnitsChange("precipitation","Inches (in)"); HandleUnitsClick()}}>Inches (in)</p>
             </div>
             </div>
         </div>)}

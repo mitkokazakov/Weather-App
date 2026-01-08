@@ -1,6 +1,17 @@
-import React from 'react'
 
-const DailyForecast = () => {
+import { useEffect } from 'react';
+
+const DailyForecast = ({info}: {info: any}) => {
+
+    
+
+    
+
+    useEffect(() => {
+        // This effect runs whenever units change
+        console.log('Units have changed:', info);
+    }, [info]);
+    
   return (
     <div className='w-full mt-5'>
       <h1 className='text-white font-semibold text-xl mb-3 tracking-widest'>Daily forecast</h1>

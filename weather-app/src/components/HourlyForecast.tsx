@@ -1,12 +1,14 @@
 import { useState } from "react";
 
-const HourlyForecast = () => {
+const HourlyForecast = ( {handleUnitsChange}: {handleUnitsChange: (unit: string, value: string) => void}) => {
 
     const [isHourlyDropdownOpen, setIsHourlyDropdownOpen] = useState(false);
 
     function HandleHourlyDropdown(){
         setIsHourlyDropdownOpen(!isHourlyDropdownOpen);
     }
+
+    
 
   return (
     <div className="w-full bg-[#3d3b5e] rounded-xl p-4 text-white flex flex-col justify-center items-center mt-8">
@@ -24,31 +26,31 @@ const HourlyForecast = () => {
 
         {isHourlyDropdownOpen && (
             <div className="w-54 bg-slate-300 absolute top-10 right-0 rounded-lg px-2 py-3 flex flex-col justify-start items-start gap-2 duration-300">
-          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg">
-            Tuesday
+          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg" onClick={() => {handleUnitsChange("day","Monday")}}>
+            Monday
           </p>
-          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg">
-            Tuesday
-          </p>
-
-          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg">
+          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg" onClick={() => {handleUnitsChange("day","Tuesday")}}  >
             Tuesday
           </p>
 
-          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg">
-            Tuesday
+          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg" onClick={() => {handleUnitsChange("day","Wednesday")}}>
+            Wednesday
           </p>
 
-          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg">
-            Tuesday
+          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg" onClick={() => {handleUnitsChange("day","Thursday")}} >
+            Thursday
           </p>
 
-          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg">
-            Tuesday
+          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg" onClick={() => {handleUnitsChange("day","Friday")}} >
+            Friday
           </p>
 
-          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg">
-            Tuesday
+          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg" onClick={() => {handleUnitsChange("day","Saturday")}} >
+            Saturday
+          </p>
+
+          <p className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg" onClick={() => {handleUnitsChange("day","Sunday")}} >
+            Sunday
           </p>
 
           
