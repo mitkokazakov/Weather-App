@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 const useUnits = () => {
@@ -7,7 +8,8 @@ const useUnits = () => {
         windSpeed: 'km/h',
         precipitation: 'Millimeters (mm)',
         day: "Monday",
-        city: "Oslo"
+        city: "Oslo",
+        country: "Norway"
     });
     
     const HandleUnitsChange = (type: string, value: string) => {
