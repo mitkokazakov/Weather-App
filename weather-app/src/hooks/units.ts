@@ -6,7 +6,8 @@ const useUnits = () => {
         temperature: 'Celsius',
         windSpeed: 'km/h',
         precipitation: 'Millimeters (mm)',
-        day: "Monday"
+        day: "Monday",
+        city: "Oslo"
     });
     
     const HandleUnitsChange = (type: string, value: string) => {

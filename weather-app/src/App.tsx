@@ -5,6 +5,8 @@ import HourlyForecast from "./components/HourlyForecast"
 import Search from "./components/Search"
 import useUnits from "./hooks/units"
 
+const apiKey = "a5254b2031874dbeb49115909230304";
+
 function App() {
   
   const {units, HandleUnitsChange} = useUnits();
@@ -12,7 +14,7 @@ function App() {
   return (
     <div className='w-full min-h-screen bg-[#03012d] p-4'>
       <Header handleUnitsChange={HandleUnitsChange} />
-      <Search />
+      <Search handleUnitsChange={HandleUnitsChange}/>
       <CurrentWeather />
       <DailyForecast info={units}/>
       <HourlyForecast handleUnitsChange={HandleUnitsChange} />
