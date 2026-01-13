@@ -6,7 +6,7 @@ const CurrentWeather = ({weather, units}: {weather: any, units: any}) => {
     <div className='flex flex-col items-center gap-5 text-white mt-8'>
       <section className='w-full  rounded-xl bg-[url(/public/bg-today-small.svg)] flex flex-col items-center px-4 py-14 bg-cover bg-center'>
             <h1 className='font-bold text-3xl tracking-widest'>{units.city}, {units.country}</h1>
-            <h4 className='font-light text-lg mt-4 tracking-widest'>Tuesday, Aug 5, 2025</h4>
+            <h4 className='font-light text-lg mt-4 tracking-widest'>{units.day}</h4>
 
             <div className='flex justify-center items-center gap-5 mt-5'>
                 <img src="/public/icon-sunny.webp" alt="weather" className='h-30 mt-2'/>

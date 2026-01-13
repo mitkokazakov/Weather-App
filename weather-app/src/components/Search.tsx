@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { TownWeatherDetermine } from "../services/weatherService";
 const geoAPIKey = "0a5bd9649f5b43368998e700d82aa7d9";
+
+type WeatherType = {
+  tempC: number;
+  tempF: number;
+  windKmh: number;
+  windMph: number;
+  precipitationMm: number;
+  precipitationIn: number;
+  humidity: number;
+  feelsLikeC: number;
+  feelsLikeF: number;
+};
 
 const Search = ({
   handleUnitsChange,
   setWeather,
 }: {
   handleUnitsChange: (unit: string, value: string) => void;
-  setWeather: (data: any) => void;
+  setWeather: (data: WeatherType) => void;
 }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [city, setCity] = useState("");
@@ -16,47 +29,16 @@ const Search = ({
     const value = event.target.value;
     setCity(value);
     setIsTyping(value.length >= 3);
-
-    // if (value.length >= 3) {
-    //   const towns = FetchTowns().then((locs) => setLocations(locs));
-    // }
   }
 
   async function ClickSearchButton() {
     handleUnitsChange("city", city);
     setIsTyping(false);
-    //FetchWeather();
-    //FetchTowns();
   }
 
   const FetchWeather = async (latitude: number, longitude: number) => {
-    const resp = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=apparent_temperature,precipitation,relativehumidity_2m&timezone=auto`
-    );
-    const data = await resp.json();
-
-    const time = data.current_weather.time;
-
-    const date = new Date(time);
-    date.setMinutes(0, 0, 0); // force HH:00
-    const timeStr = date.toISOString().slice(0, 16);
-    const index = data.hourly.time.indexOf(timeStr);
-
-    console.log(timeStr);
-
-    console.log(index);
-
-    const weather = {
-      tempC: data.current_weather.temperature,
-      tempF: (data.current_weather.temperature * 9) / 5 + 32,
-      windKmh: data.current_weather.windspeed,
-      windMph: data.current_weather.windspeed / 1.609,
-      precipitationMm: data.hourly.precipitation[index],
-      precipitationIn: data.hourly.precipitation[index] / 25.4,
-      feelsLikeC: data.hourly.apparent_temperature[index], // Placeholder
-      feelsLikeF: (data.hourly.apparent_temperature[index] * 9) / 5 + 32, // Placeholder
-      humidity: data.hourly.relativehumidity_2m[index],
-    };
+    
+    const weather = await TownWeatherDetermine(latitude, longitude);
     setWeather(weather);
   };
 
@@ -79,15 +61,21 @@ const Search = ({
         return;
       }
 
-      const locations = data.features.map((f: any) => ({
-        name: f.properties.city,
-        country: f.properties.country,
-        lat: f.properties.lat,
-        lon: f.properties.lon,
-      }));
+      const locations = data.features
+        .filter(
+          (f: any) =>
+            typeof f.properties.city === "string" &&
+            f.properties.city.trim().length > 2
+        )
+        .map((f: any) => ({
+          name: f.properties.city,
+          country: f.properties.country,
+          lat: f.properties.lat,
+          lon: f.properties.lon,
+        }));
 
       setLocations(locations);
-    
+
       return () => controller.abort();
     };
 
@@ -123,7 +111,7 @@ const Search = ({
                   handleUnitsChange("country", l.country);
                 }}
               >
-                {l.name}, {l.country}, {l.lat}, {l.lon}
+                {l.name}, {l.country}
               </p>
             ))}
         </div>
