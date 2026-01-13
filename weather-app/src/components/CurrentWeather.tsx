@@ -17,7 +17,7 @@ const CurrentWeather = ({weather, units}: {weather: any, units: any}) => {
       <section className='w-full grid grid-cols-2 gap-4'>
             <div className=' p-4 flex flex-col items-start gap-5 bg-[#3d3b5e] rounded-xl'>
                 <p className='font-light text-lg'>Feels like</p>
-                <p className='text-3xl'>{weather.feelsLikeC}°</p>
+                <p className='text-3xl'>{units.temperature === "Celsius" ? weather.feelsLikeC : weather.feelsLikeF}°</p>
             </div>
 
             <div className=' p-4 flex flex-col items-start gap-5 bg-[#3d3b5e] rounded-xl'>

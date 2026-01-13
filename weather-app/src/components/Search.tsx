@@ -95,6 +95,7 @@ const Search = ({
           className="w-full bg-[#3d3b5e] rounded-lg pl-12 pr-4 py-2 text-white placeholder:text-slate-300 outline-none focus:outline-none"
           placeholder="Search for a city..."
           onChange={handleInputChange}
+          value={city}
         />
       </div>
 
@@ -109,6 +110,8 @@ const Search = ({
                   FetchWeather(l.lat, l.lon);
                   handleUnitsChange("city", l.name);
                   handleUnitsChange("country", l.country);
+                  setIsTyping(false);
+                  setCity("");
                 }}
               >
                 {l.name}, {l.country}

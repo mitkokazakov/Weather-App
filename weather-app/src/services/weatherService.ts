@@ -18,16 +18,36 @@ export const TownWeatherDetermine = async (
 
   console.log(index);
 
+  //   const weather = {
+  //     tempC: data.current_weather.temperature as number,
+  //     tempF: ((data.current_weather.temperature * 9) / 5 + 32),
+  //     windKmh: data.current_weather.windspeed as number,
+  //     windMph: data.current_weather.windspeed / 1.609,
+  //     precipitationMm: data.hourly.precipitation[index] as number,
+  //     precipitationIn: data.hourly.precipitation[index] / 25.4,
+  //     feelsLikeC: data.hourly.apparent_temperature[index] as number,
+  //     feelsLikeF: (data.hourly.apparent_temperature[index] * 9) / 5 + 32,
+  //     humidity: data.hourly.relativehumidity_2m[index] as number,
+  //   };
+
   const weather = {
-    tempC: data.current_weather.temperature as number,
-    tempF: (data.current_weather.temperature * 9) / 5 + 32,
-    windKmh: data.current_weather.windspeed as number,
-    windMph: data.current_weather.windspeed / 1.609,
-    precipitationMm: data.hourly.precipitation[index] as number,
-    precipitationIn: data.hourly.precipitation[index] / 25.4,
-    feelsLikeC: data.hourly.apparent_temperature[index] as number, // Placeholder
-    feelsLikeF: (data.hourly.apparent_temperature[index] * 9) / 5 + 32, // Placeholder
-    humidity: data.hourly.relativehumidity_2m[index] as number,
+    tempC: Number(data.current_weather.temperature.toFixed(1)),
+    tempF: Number(((data.current_weather.temperature * 9) / 5 + 32).toFixed(1)),
+
+    windKmh: Number(data.current_weather.windspeed.toFixed(1)),
+    windMph: Number((data.current_weather.windspeed / 1.609).toFixed(1)),
+
+    precipitationMm: Number(data.hourly.precipitation[index].toFixed(1)),
+    precipitationIn: Number(
+      (data.hourly.precipitation[index] / 25.4).toFixed(1)
+    ),
+
+    feelsLikeC: Number(data.hourly.apparent_temperature[index].toFixed(1)),
+    feelsLikeF: Number(
+      ((data.hourly.apparent_temperature[index] * 9) / 5 + 32).toFixed(1)
+    ),
+
+    humidity: Number(data.hourly.relativehumidity_2m[index].toFixed(1)),
   };
 
   return weather;
