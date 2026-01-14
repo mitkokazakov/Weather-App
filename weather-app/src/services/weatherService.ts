@@ -52,3 +52,28 @@ export const TownWeatherDetermine = async (
 
   return weather;
 };
+
+export const DetermineHourlyForecast = async (latitude: number,
+  longitude: number) => {
+
+    const resp = await fetch(
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=apparent_temperature,precipitation,relativehumidity_2m&timezone=auto`
+  );
+  const data = await resp.json();
+   const hourlyData = {
+    "1 AM" : data.hourly.apparent_temperature[2],
+    "3 AM" : data.hourly.apparent_temperature[4],
+    "5 AM" : data.hourly.apparent_temperature[6],
+    "7 AM" : data.hourly.apparent_temperature[8],
+    "9 AM" : data.hourly.apparent_temperature[10],
+    "11 AM" : data.hourly.apparent_temperature[12],
+    "1 PM" : data.hourly.apparent_temperature[14],
+    "3 PM" : data.hourly.apparent_temperature[16],
+    "5 PM" : data.hourly.apparent_temperature[18],
+    "7 PM" : data.hourly.apparent_temperature[20],
+    "9 PM" : data.hourly.apparent_temperature[22],
+    "11 PM" : data.hourly.apparent_temperature[24],
+   }
+
+   return hourlyData;
+}

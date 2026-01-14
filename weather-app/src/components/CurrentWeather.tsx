@@ -10,7 +10,7 @@ const CurrentWeather = ({weather, units}: {weather: any, units: any}) => {
 
             <div className='flex justify-center items-center gap-5 mt-5'>
                 <img src="/public/icon-sunny.webp" alt="weather" className='h-30 mt-2'/>
-                <p className='font-bold text-8xl'>{weather.tempC}°</p>
+                <p className='font-bold text-8xl'>{units.temperature === "Celsius" ? weather.feelsLikeC : weather.feelsLikeF}°</p>
             </div>
       </section>
 
@@ -27,12 +27,12 @@ const CurrentWeather = ({weather, units}: {weather: any, units: any}) => {
 
             <div className=' p-4 flex flex-col items-start gap-5 bg-[#3d3b5e] rounded-xl'>
                 <p className='font-light text-lg'>Wind</p>
-                <p className='text-3xl'>{weather.windKmh} mph</p>
+                <p className='text-3xl'>{units.windSpeed === "km/h" ? weather.windKmh : weather.windMph} mph</p>
             </div>
 
             <div className=' p-4 flex flex-col items-start gap-5 bg-[#3d3b5e] rounded-xl'>
                 <p className='font-light text-lg'>Precipitation</p>
-                <p className='text-3xl'>{weather.precipitationMm} in</p>
+                <p className='text-3xl'>{units.precipitation === "Millimeters (mm)" ? weather.precipitationMm : weather.precipitationIn} in</p>
             </div>
       </section>
     </div>

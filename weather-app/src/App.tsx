@@ -22,7 +22,7 @@ function App() {
       <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} />
       <CurrentWeather weather={weather} units={units} />
       <DailyForecast info={units}/>
-      <HourlyForecast handleUnitsChange={HandleUnitsChange} />
+      <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units}/>
     </div>
   )
 }

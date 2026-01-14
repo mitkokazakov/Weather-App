@@ -24,7 +24,7 @@ const Header = ({handleUnitsChange}: {handleUnitsChange: (unit: string, value: s
             <img src="/public/icon-dropdown.svg" alt="icon" />
         </div>
 
-        {isClickedUnits && (<div className="bg-[#3d3b5e] absolute top-10 right-0 rounded-lg px-4 py-3 flex flex-col justify-start items-start gap-2 duration-300">
+        {isClickedUnits && (<div className="bg-[#3d3b5e] absolute top-10 right-0 rounded-lg px-4 py-3 flex flex-col justify-start items-start gap-2 duration-300 z-10">
             <p className="text-white">Switch to Imperial</p>
 
             <div className="flex flex-col justify-start items-start gap-2  divide-y-[0.1px] divide-slate-300">

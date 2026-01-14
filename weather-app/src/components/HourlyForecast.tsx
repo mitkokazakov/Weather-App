@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { DetermineHourlyForecast } from "../services/weatherService";
 
-const HourlyForecast = ( {handleUnitsChange}: {handleUnitsChange: (unit: string, value: string) => void}) => {
+const HourlyForecast = ( {handleUnitsChange, units}: {handleUnitsChange: (unit: string, value: string) => void, units: any}) => {
 
     const [isHourlyDropdownOpen, setIsHourlyDropdownOpen] = useState(false);
+    const [hourlyForecats, setHourlyForecast] = useState({});
 
     function HandleHourlyDropdown(){
         setIsHourlyDropdownOpen(!isHourlyDropdownOpen);
     }
+
+    useEffect(() => {
+        const FetchHourlyForecast = async () => {
+          // const hourly = await DetermineHourlyForecast()
+        }
+    },[units.city])
 
     
 
