@@ -37,7 +37,6 @@ const Search = ({
   }
 
   const FetchWeather = async (latitude: number, longitude: number) => {
-    
     const weather = await TownWeatherDetermine(latitude, longitude);
     setWeather(weather);
   };
@@ -100,22 +99,25 @@ const Search = ({
       </div>
 
       {isTyping && (
-        <div className="w-full bg-[#4455da]  rounded-lg flex flex-col justify-center items-start text-white font-semibold tracking-widest duration-300 p-4">
+        <div className="w-full bg-[#3d3b5e]   rounded-lg flex flex-col justify-center items-start text-white font-semibold tracking-widest duration-300 p-4">
           {locations &&
             locations.map((l: any, index: number) => (
-              <p
-                className="cursor-pointer hover:underline py-2"
-                key={l.name + index}
-                onClick={() => {
-                  FetchWeather(l.lat, l.lon);
-                  handleUnitsChange("city", l.name);
-                  handleUnitsChange("country", l.country);
-                  setIsTyping(false);
-                  setCity("");
-                }}
-              >
-                {l.name}, {l.country}
-              </p>
+              <div className="w-full flex flex-col gap-1 py-2 cursor-pointer hover:bg-[#312f4b] hover:rounded-lg hover:px-3 duration-150" key={l.name + index}  onClick={() => {
+                    FetchWeather(l.lat, l.lon);
+                    handleUnitsChange("city", l.name);
+                    handleUnitsChange("country", l.country);
+                    setIsTyping(false);
+                    setCity("");
+                  }}>
+                <p
+                  className="font-semibold text-lg"
+                  key={l.name + index}
+                 
+                >
+                  {l.name}
+                </p>
+                <p className="w-full text-sm font-light">{l.name}, {l.country}</p>
+              </div>
             ))}
         </div>
       )}
