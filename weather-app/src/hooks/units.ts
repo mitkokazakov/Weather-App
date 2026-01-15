@@ -19,6 +19,7 @@ const useUnits = (location: LocationType | null) => {
     day: formattedDate,
     city: "Oslo",
     country: "Norway",
+    dayName: today.toLocaleDateString("en-US", { weekday: "long" }),
   });
 
   const HandleUnitsChange = (type: string, value: string) => {
