@@ -13,14 +13,19 @@ type WeatherType = {
   feelsLikeC: number;
   feelsLikeF: number;
 };
+type SearchProps = {
+  handleUnitsChange: (type: string, value: string) => void;
+  setWeather: (data: WeatherType) => void;
+  setLocation: (loc: { latitude: number; longitude: number }) => void;
+};
+
+
 
 const Search = ({
   handleUnitsChange,
   setWeather,
-}: {
-  handleUnitsChange: (unit: string, value: string) => void;
-  setWeather: (data: WeatherType) => void;
-}) => {
+  setLocation
+}: SearchProps) => {
   const [isTyping, setIsTyping] = useState(false);
   const [city, setCity] = useState("");
   const [locations, setLocations] = useState([]);
@@ -108,6 +113,7 @@ const Search = ({
                     handleUnitsChange("country", l.country);
                     setIsTyping(false);
                     setCity("");
+                    setLocation({ latitude: l.lat, longitude: l.lon });
                   }}>
                 <p
                   className="font-semibold text-lg"

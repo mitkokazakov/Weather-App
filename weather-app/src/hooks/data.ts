@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getLongitudeAndLatitude } from "../services/locationService";
 import { TownWeatherDetermine } from "../services/weatherService";
+import { type LocationType } from "./location";
 
 type WeatherType = {
   tempC: number;
@@ -14,13 +14,11 @@ type WeatherType = {
   feelsLikeF: number;
 };
 
-type LocationType = {
-  latitude: number;
-  longitude: number;
-};
 
-const useWeather = () => {
-  const [location, setLocation] = useState<LocationType | null>(null);
+
+const useWeather = (location: LocationType | null) => {
+
+  // const [location, setLocation] = useState<LocationType | null>(null);
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState({
     tempC: 23,
@@ -34,14 +32,14 @@ const useWeather = () => {
     feelsLikeF: 1,
   });
 
-  useEffect(() => {
-    getLongitudeAndLatitude()
-      .then(setLocation)
-      .catch((err) => {
-        console.error("Location error:", err);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getLongitudeAndLatitude()
+  //     .then(setLocation)
+  //     .catch((err) => {
+  //       console.error("Location error:", err);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   console.log(location?.latitude, location?.longitude);
   

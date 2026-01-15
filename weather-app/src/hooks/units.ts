@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
-import { getLongitudeAndLatitude } from "../services/locationService";
+import {  useEffect, useState } from "react";
+import type { LocationType } from "./location";
 
-type LocationType = {
-  latitude: number;
-  longitude: number;
-};
 
-const useUnits = () => {
+const useUnits = (location: LocationType | null) => {
   const today = new Date();
 
   const formattedDate = new Intl.DateTimeFormat("en-US", {
@@ -15,8 +11,6 @@ const useUnits = () => {
     day: "numeric",
     year: "numeric",
   }).format(today);
-
-  const [location, setLocation] = useState<LocationType | null>(null);
 
   const [units, setUnits] = useState({
     temperature: "Celsius",
@@ -34,13 +28,7 @@ const useUnits = () => {
     }));
   };
 
-  useEffect(() => {
-      getLongitudeAndLatitude()
-        .then(setLocation)
-        .catch((err) => {
-          console.error("Location error:", err);
-        });
-    }, []);
+
 
   useEffect(() => {
     if (!location) return;

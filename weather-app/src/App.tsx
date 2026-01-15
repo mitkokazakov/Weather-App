@@ -4,25 +4,26 @@ import Header from "./components/Header"
 import HourlyForecast from "./components/HourlyForecast"
 import Search from "./components/Search"
 import useWeather from "./hooks/data"
+import useHourlyWeather from "./hooks/hourly"
+import { useLocation } from "./hooks/location"
 import useUnits from "./hooks/units"
 
 const apiKey = "a5254b2031874dbeb49115909230304";
 
 function App() {
-  
-  const {units, HandleUnitsChange} = useUnits();
-  const {SetWeather, weather} = useWeather();
-
-  console.log(weather);
+  const { location, setLocation } = useLocation();
+  const {units, HandleUnitsChange} = useUnits(location);
+  const {SetWeather, weather} = useWeather(location);
+  const {hourly} = useHourlyWeather(location);
   
 
   return (
     <div className='w-full min-h-screen bg-[#03012d] p-4'>
       <Header handleUnitsChange={HandleUnitsChange} />
-      <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} />
+      <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} setLocation={setLocation}/>
       <CurrentWeather weather={weather} units={units} />
       <DailyForecast info={units}/>
-      <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units}/>
+      <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} />
     </div>
   )
 }
