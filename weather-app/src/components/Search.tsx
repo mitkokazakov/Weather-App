@@ -19,16 +19,21 @@ type SearchProps = {
   setLocation: (loc: { latitude: number; longitude: number }) => void;
 };
 
-
+type Location = {
+  name: string;
+  country: string;
+  lat: number;
+  lon: number;
+};
 
 const Search = ({
   handleUnitsChange,
   setWeather,
-  setLocation
+  setLocation,
 }: SearchProps) => {
   const [isTyping, setIsTyping] = useState(false);
   const [city, setCity] = useState("");
-  const [locations, setLocations] = useState([]);
+  const [locations, setLocations] = useState<Location[]>([]);
 
   async function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
@@ -65,20 +70,42 @@ const Search = ({
         return;
       }
 
-      const locations = data.features
+      // const locations = data.features
+      //   .filter(
+      //     (f: any) =>
+      //       typeof f.properties.city === "string" &&
+      //       f.properties.city.trim().length > 2
+      //   )
+      //   .map((f: any) => ({
+      //     name: f.properties.city,
+      //     country: f.properties.country,
+      //     lat: f.properties.lat,
+      //     lon: f.properties.lon,
+      //   }));
+
+      // setLocations(locations);
+
+      const uniqueMap = new Map<string, any>();
+
+      data.features
         .filter(
           (f: any) =>
             typeof f.properties.city === "string" &&
             f.properties.city.trim().length > 2
         )
-        .map((f: any) => ({
-          name: f.properties.city,
-          country: f.properties.country,
-          lat: f.properties.lat,
-          lon: f.properties.lon,
-        }));
+        .forEach((f: any) => {
+          const key = `${f.properties.city}-${f.properties.country}`;
+          if (!uniqueMap.has(key)) {
+            uniqueMap.set(key, {
+              name: f.properties.city,
+              country: f.properties.country,
+              lat: f.properties.lat,
+              lon: f.properties.lon,
+            });
+          }
+        });
 
-      setLocations(locations);
+      setLocations(Array.from(uniqueMap.values()));
 
       return () => controller.abort();
     };
@@ -107,22 +134,24 @@ const Search = ({
         <div className="w-full bg-[#3d3b5e]   rounded-lg flex flex-col justify-center items-start text-white font-semibold tracking-widest duration-300 p-4">
           {locations &&
             locations.map((l: any, index: number) => (
-              <div className="w-full flex flex-col gap-1 py-2 cursor-pointer hover:bg-[#312f4b] hover:rounded-lg hover:px-3 duration-150" key={l.name + index}  onClick={() => {
-                    FetchWeather(l.lat, l.lon);
-                    handleUnitsChange("city", l.name);
-                    handleUnitsChange("country", l.country);
-                    setIsTyping(false);
-                    setCity("");
-                    setLocation({ latitude: l.lat, longitude: l.lon });
-                  }}>
-                <p
-                  className="font-semibold text-lg"
-                  key={l.name + index}
-                 
-                >
+              <div
+                className="w-full flex flex-col gap-1 py-2 cursor-pointer hover:bg-[#312f4b] hover:rounded-lg hover:px-3 duration-150"
+                key={l.name + index}
+                onClick={() => {
+                  FetchWeather(l.lat, l.lon);
+                  handleUnitsChange("city", l.name);
+                  handleUnitsChange("country", l.country);
+                  setIsTyping(false);
+                  setCity("");
+                  setLocation({ latitude: l.lat, longitude: l.lon });
+                }}
+              >
+                <p className="font-semibold text-lg" key={l.name + index}>
                   {l.name}
                 </p>
-                <p className="w-full text-sm font-light">{l.name}, {l.country}</p>
+                <p className="w-full text-sm font-light">
+                  {l.name}, {l.country}
+                </p>
               </div>
             ))}
         </div>
