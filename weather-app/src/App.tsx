@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className='w-full min-h-screen bg-[#03012d] p-4'>
-      <Header handleUnitsChange={HandleUnitsChange} />
+      <Header handleUnitsChange={HandleUnitsChange} units={units}/>
       <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} setLocation={setLocation}/>
       <CurrentWeather weather={weather} units={units} />
       <DailyForecast info={units}/>
