@@ -14,7 +14,7 @@ function App() {
   const { location, setLocation } = useLocation();
   const {units, HandleUnitsChange} = useUnits(location);
   const {SetWeather, weather} = useWeather(location);
-  const {hourly} = useHourlyWeather(location);
+  const {hourly,daysName, SetCurrentDay} = useHourlyWeather(location);
   
 
   return (
@@ -23,7 +23,7 @@ function App() {
       <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} setLocation={setLocation}/>
       <CurrentWeather weather={weather} units={units} />
       <DailyForecast info={units}/>
-      <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} />
+      <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} daysName={daysName} setDay={SetCurrentDay}/>
     </div>
   )
 }

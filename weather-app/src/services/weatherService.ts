@@ -44,7 +44,7 @@ export const TownWeatherDetermine = async (
 };
 
 export const DetermineHourlyForecast = async (latitude: number,
-  longitude: number) => {
+  longitude: number, day: string) => {
 
     const resp = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=apparent_temperature,precipitation,relativehumidity_2m,weather_code&timezone=auto`
@@ -113,5 +113,39 @@ export const DetermineHourlyForecast = async (latitude: number,
     },
   };
 
-   return hourlyData;
+  const hourlyTemps = [];
+
+  for (let index = 0; index < data.hourly.time.length; index++) {
+    const element = data.hourly.time[index];
+
+    const formattedElement = new Date(element);
+
+    const elementName =  formattedElement.toLocaleDateString("en-US", {
+        weekday: "long",
+      });
+
+    if (elementName === day) {
+
+      const rawHour = new Date( data.hourly.time[index])
+
+      const labelHour = rawHour.toLocaleTimeString("en-US", {
+        hour: 'numeric',
+        hour12: true,
+      });
+
+      const tempC = Number(data.hourly.apparent_temperature[index].toFixed(1));
+      const tempF = Number(((data.hourly.apparent_temperature[index] * 9) / 5 + 32).toFixed(1));
+
+      let obj = {
+        temp: tempC,
+        tempF: tempF,
+        code: data.hourly.weather_code[index],
+        labelHour: labelHour
+      }
+      hourlyTemps.push(obj);
+    }
+    
+  }
+
+   return hourlyTemps;
 }

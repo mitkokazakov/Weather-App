@@ -1,28 +1,35 @@
 import { useEffect, useState } from "react";
 
- type HourlyWeatherItem = {
+type HourlyWeatherItem = {
   temp: number;
   tempF: number;
   code: number;
+  labelHour: string;
 };
 
- type HourlyWeather = Record<string, HourlyWeatherItem>;
+type HourlyWeather = HourlyWeatherItem[];
 
 const HourlyForecast = ({
   handleUnitsChange,
   units,
   hourly,
+  daysName,
+  setDay
 }: {
   handleUnitsChange: (unit: string, value: string) => void;
   units: any;
   hourly: HourlyWeather;
+  daysName: {
+    currentDay: string;
+    daysList: string[];
+  };
+  setDay: (day: string) => void;
 }) => {
   const [isHourlyDropdownOpen, setIsHourlyDropdownOpen] = useState(false);
 
   function HandleHourlyDropdown() {
     setIsHourlyDropdownOpen(!isHourlyDropdownOpen);
   }
-
 
   return (
     <div className="w-full bg-[#3d3b5e] rounded-xl p-4 text-white flex flex-col justify-center items-center mt-8">
@@ -34,13 +41,25 @@ const HourlyForecast = ({
           className="bg-[#d5d4d9] flex justify-center items-center gap-2 px-3 py-1 rounded-lg cursor-pointer"
           onClick={HandleHourlyDropdown}
         >
-          <p className="text-white">Tuesday</p>
+          <p className="text-white">{daysName.currentDay}</p>
           <img src="/public/icon-dropdown.svg" alt="icon" />
         </div>
 
         {isHourlyDropdownOpen && (
           <div className="w-54 bg-slate-300 absolute top-10 right-0 rounded-lg px-2 py-3 flex flex-col justify-start items-start gap-2 duration-300">
-            <p
+            { daysName.daysList.map((day, index) => (
+              <p
+                className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg"
+                onClick={() => {
+                  handleUnitsChange("day", day);
+                  setDay(day);
+                  HandleHourlyDropdown();
+                }}
+              >
+                {day}
+              </p>
+            ))}
+            {/* <p
               className=" text-white bg-slate-500 py-1 px-2 w-full rounded-lg"
               onClick={() => {
                 handleUnitsChange("day", "Monday");
@@ -107,27 +126,31 @@ const HourlyForecast = ({
               }}
             >
               Sunday
-            </p>
+            </p> */}
           </div>
         )}
       </section>
 
       <section className="w-full flex flex-col justify-center items-center gap-4 mt-4">
-        {Object.entries(hourly).map(([key, value]) => (
-          <div className="w-full pr-4 pl-1 py-2 flex justify-between items-center gap-2 text-white bg-slate-400 rounded-xl" key={key}>
+        {hourly.map((item: HourlyWeatherItem) => (
+          <div
+            className="w-full pr-4 pl-1 py-2 flex justify-between items-center gap-2 text-white bg-slate-400 rounded-xl"
+            key={item.labelHour}
+          >
             <div className=" flex justify-center items-center">
               <img
                 src="/public/icon-sunny.webp"
                 alt="weather"
                 className="h-10"
               />
-              <p className="text-lg">{key}</p>
+              <p className="text-lg">{item.labelHour}</p>
             </div>
 
-            <p>{units.temperature === "Celsius" ? value?.temp : value?.tempF}°</p>
+            <p>
+              {units.temperature === "Celsius" ? item.temp : item.tempF}°
+            </p>
           </div>
         ))}
-        
       </section>
     </div>
   );

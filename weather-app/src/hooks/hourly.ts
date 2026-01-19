@@ -1,27 +1,57 @@
 import { useEffect, useState } from "react";
 import { type LocationType } from "./location";
 import { DetermineHourlyForecast } from "../services/weatherService";
-import useUnits from "./units";
 
+type HourlyWeatherItem = {
+  temp: number;
+  tempF: number;
+  code: number;
+  labelHour: string;
+};
 
- const useHourlyWeather = (location: LocationType | null) => {
-  const [hourly, setHourly] = useState({
-  "1 AM": { temp: 0,tempF: 0, code: 0 },
-  "3 AM": { temp: 0, tempF: 0, code: 0 },
-  "5 AM": { temp: 0, tempF: 0, code: 0 },
-  "7 AM": { temp: 0, tempF: 0, code: 0 },
-  "9 AM": { temp: 0, tempF: 0, code: 0 },
-  "11 AM": { temp: 0, tempF: 0, code: 0 },
-  "1 PM": { temp: 0, tempF: 0, code: 0 },
-  "3 PM": { temp: 0, tempF: 0, code: 0 },
-  "5 PM": { temp: 0, tempF: 0, code: 0 },
-  "7 PM": { temp: 0, tempF: 0, code: 0 },
-  "9 PM": { temp: 0, tempF: 0, code: 0 },
-  "11 PM": { temp: 0, tempF: 0, code: 0 },
-});
+const useHourlyWeather = (location: LocationType | null) => {
+  const [hourly, setHourly] = useState<HourlyWeatherItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-//   const {units} = useUnits(location);
+  const [daysName, setDaysName] = useState({
+    currentDay: "",
+    daysList: [] as string[],
+  });
+
+  function SetCurrentDay(day: string){
+    setDaysName((prev) => ({
+      ...prev,
+      currentDay: day,
+    }));
+  }
+
+  function SetDaysName() {
+    const today = new Date();
+    const days: string[] = [];
+    const formattedDate = new Intl.DateTimeFormat("en-US", {
+      weekday: "long",
+    }).format(today);
+
+    days.push(formattedDate);
+
+    for (let i = 1; i < 7; i++) {
+      const nextDay = new Date();
+      nextDay.setDate(today.getDate() + i);
+      const dayName = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+      }).format(nextDay);
+      days.push(dayName);
+    }
+
+    return {
+      currentDay: days[0],
+      daysList: days.slice(1),
+    };
+  }
+
+  useEffect(() => {
+    setDaysName(SetDaysName());
+  }, []);
 
   useEffect(() => {
     if (!location) return;
@@ -30,17 +60,20 @@ import useUnits from "./units";
       setLoading(true);
       const data = await DetermineHourlyForecast(
         location.latitude,
-        location.longitude
+        location.longitude,
+        daysName.currentDay
       );
       setHourly(data);
       setLoading(false);
     };
 
     fetchHourly();
-  }, [location]);
+  }, [location, daysName.currentDay]);
 
   return {
     hourly,
+    daysName,
+    SetCurrentDay
   };
 };
 
