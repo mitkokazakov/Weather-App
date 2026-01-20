@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { DetermineWeatherIcon } from "../services/weatherService";
 
 type HourlyWeatherItem = {
   temp: number;
@@ -72,8 +73,9 @@ const HourlyForecast = ({
             key={item.labelHour}
           >
             <div className=" flex justify-center items-center">
+              
               <img
-                src="/public/icon-sunny.webp"
+                src={DetermineWeatherIcon(item.code)}
                 alt="weather"
                 className="h-10"
               />

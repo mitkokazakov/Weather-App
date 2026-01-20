@@ -38,6 +38,7 @@ export const TownWeatherDetermine = async (
     ),
 
     humidity: Number(data.hourly.relativehumidity_2m[index].toFixed(1)),
+    code: data.current_weather.weathercode,
   };
 
   return weather;
@@ -50,68 +51,7 @@ export const DetermineHourlyForecast = async (latitude: number,
     `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=apparent_temperature,precipitation,relativehumidity_2m,weather_code&timezone=auto`
   );
   const data = await resp.json();
-   const hourlyData = {
-    "1 AM": {
-      temp: Number(data.hourly.apparent_temperature[2]),
-      tempF: Number(((data.hourly.apparent_temperature[2] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[2],
-    },
-    "3 AM": {
-      temp: Number(data.hourly.apparent_temperature[4]),
-      tempF: Number(((data.hourly.apparent_temperature[4] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[4],
-    },
-    "5 AM": {
-      temp: Number(data.hourly.apparent_temperature[6]),
-      tempF: Number(((data.hourly.apparent_temperature[6] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[6],
-    },
-    "7 AM": {
-      temp: Number(data.hourly.apparent_temperature[8]),
-      tempF: Number(((data.hourly.apparent_temperature[8] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[8],
-    },
-    "9 AM": {
-      temp: Number(data.hourly.apparent_temperature[10]),
-      tempF: Number(((data.hourly.apparent_temperature[10] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[10],
-    },
-    "11 AM": {
-      temp: Number(data.hourly.apparent_temperature[12]),
-      tempF: Number(((data.hourly.apparent_temperature[12] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[12],
-    },
-    "1 PM": {
-      temp: Number(data.hourly.apparent_temperature[14]),
-      tempF: Number(((data.hourly.apparent_temperature[14] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[14],
-    },
-    "3 PM": {
-      temp: Number(data.hourly.apparent_temperature[16]),
-      tempF: Number(((data.hourly.apparent_temperature[16] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[16],
-    },
-    "5 PM": {
-      temp: Number(data.hourly.apparent_temperature[18]),
-      tempF: Number(((data.hourly.apparent_temperature[18] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[18],
-    },
-    "7 PM": {
-      temp: Number(data.hourly.apparent_temperature[20]),
-      tempF: Number(((data.hourly.apparent_temperature[20] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[20],
-    },
-    "9 PM": {
-      temp: Number(data.hourly.apparent_temperature[22]),
-      tempF: Number(((data.hourly.apparent_temperature[22] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[22],
-    },
-    "11 PM": {
-      temp: Number(data.hourly.apparent_temperature[24]),
-      tempF: Number(((data.hourly.apparent_temperature[24] * 9) / 5 + 32).toFixed(1)),
-      code: data.hourly.weather_code[24],
-    },
-  };
+  
 
   const hourlyTemps = [];
 
@@ -148,4 +88,42 @@ export const DetermineHourlyForecast = async (latitude: number,
   }
 
    return hourlyTemps;
+}
+
+
+const weatherIconsMap: Record<number, string> = {
+  0: "/icon-sunny.webp",
+  1: "/icon-partly-cloudy.webp",
+  2: "/icon-partly-cloudy.webp",
+  3: "/icon-overcast.webp",
+  45: "/icon-fog.webp",
+  48: "/icon-fog.webp",
+  51: "/icon-drizzle.webp",
+  53: "/icon-drizzle.webp",
+  55: "/icon-drizzle.webp",
+  56: "/icon-drizzle.webp",
+  57: "/icon-drizzle.webp",
+  66: "/icon-drizzle.webp",
+  67: "/icon-drizzle.webp",
+  61: "/icon-rain.webp",
+  63: "/icon-rain.webp",
+  65: "/icon-rain.webp",
+  80: "/icon-rain.webp",
+  81: "/icon-rain.webp",
+  82: "/icon-rain.webp",
+  71: "/icon-snow.webp",
+  73: "/icon-snow.webp",
+  75: "/icon-snow.webp",
+  77: "/icon-snow.webp",
+  85: "/icon-snow.webp",
+  86: "/icon-snow.webp",
+  95: "/icon-storm.webp",
+  96: "/icon-storm.webp",
+  99: "/icon-storm.webp",
+}
+
+export const DetermineWeatherIcon = (code: number) => {
+
+  return weatherIconsMap[code] || "./public/icon-fog.webp";
+
 }

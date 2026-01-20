@@ -1,7 +1,10 @@
 import React from 'react'
+import { DetermineWeatherIcon } from '../services/weatherService'
 
 const CurrentWeather = ({weather, units}: {weather: any, units: any}) => {
 
+    console.log(weather.code);
+    
   return (
     <div className='flex flex-col items-center gap-5 text-white mt-8'>
       <section className='w-full  rounded-xl bg-[url(/public/bg-today-small.svg)] flex flex-col items-center px-4 py-14 bg-cover bg-center'>
@@ -9,7 +12,7 @@ const CurrentWeather = ({weather, units}: {weather: any, units: any}) => {
             <h4 className='font-light text-lg mt-4 tracking-widest'>{units.day}</h4>
 
             <div className='flex justify-center items-center gap-5 mt-5'>
-                <img src="/public/icon-sunny.webp" alt="weather" className='h-30 mt-2'/>
+                <img src={DetermineWeatherIcon(weather.code)} alt="weather" className='h-30 mt-2'/>
                 <p className='font-bold text-8xl'>{units.temperature === "Celsius" ? weather.feelsLikeC : weather.feelsLikeF}°</p>
             </div>
       </section>

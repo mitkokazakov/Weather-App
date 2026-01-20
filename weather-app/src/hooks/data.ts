@@ -12,6 +12,7 @@ type WeatherType = {
   humidity: number;
   feelsLikeC: number;
   feelsLikeF: number;
+  code: number;
 };
 
 
