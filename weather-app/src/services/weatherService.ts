@@ -1,9 +1,11 @@
+import type { DailyForecastType } from "../hooks/daily";
+
 export const TownWeatherDetermine = async (
   latitude: number,
-  longitude: number
+  longitude: number,
 ) => {
   const resp = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=apparent_temperature,precipitation,relativehumidity_2m&timezone=auto`
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=apparent_temperature,precipitation,relativehumidity_2m&timezone=auto`,
   );
   const data = await resp.json();
 
@@ -12,7 +14,7 @@ export const TownWeatherDetermine = async (
   const date = new Date(time);
   date.setMinutes(0, 0, 0); // force HH:00
   console.log(date);
-  
+
   const timeStr = date.toISOString().slice(0, 16);
   const index = data.hourly.time.indexOf(timeStr);
 
@@ -29,12 +31,12 @@ export const TownWeatherDetermine = async (
 
     precipitationMm: Number(data.hourly.precipitation[index].toFixed(1)),
     precipitationIn: Number(
-      (data.hourly.precipitation[index] / 25.4).toFixed(1)
+      (data.hourly.precipitation[index] / 25.4).toFixed(1),
     ),
 
     feelsLikeC: Number(data.hourly.apparent_temperature[index].toFixed(1)),
     feelsLikeF: Number(
-      ((data.hourly.apparent_temperature[index] * 9) / 5 + 32).toFixed(1)
+      ((data.hourly.apparent_temperature[index] * 9) / 5 + 32).toFixed(1),
     ),
 
     humidity: Number(data.hourly.relativehumidity_2m[index].toFixed(1)),
@@ -44,14 +46,15 @@ export const TownWeatherDetermine = async (
   return weather;
 };
 
-export const DetermineHourlyForecast = async (latitude: number,
-  longitude: number, day: string) => {
-
-    const resp = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=apparent_temperature,precipitation,relativehumidity_2m,weather_code&timezone=auto`
+export const DetermineHourlyForecast = async (
+  latitude: number,
+  longitude: number,
+  day: string,
+) => {
+  const resp = await fetch(
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=apparent_temperature,precipitation,relativehumidity_2m,weather_code&timezone=auto`,
   );
   const data = await resp.json();
-  
 
   const hourlyTemps = [];
 
@@ -60,36 +63,35 @@ export const DetermineHourlyForecast = async (latitude: number,
 
     const formattedElement = new Date(element);
 
-    const elementName =  formattedElement.toLocaleDateString("en-US", {
-        weekday: "long",
-      });
+    const elementName = formattedElement.toLocaleDateString("en-US", {
+      weekday: "long",
+    });
 
     if (elementName === day) {
-
-      const rawHour = new Date( data.hourly.time[index])
+      const rawHour = new Date(data.hourly.time[index]);
 
       const labelHour = rawHour.toLocaleTimeString("en-US", {
-        hour: 'numeric',
+        hour: "numeric",
         hour12: true,
       });
 
       const tempC = Number(data.hourly.apparent_temperature[index].toFixed(1));
-      const tempF = Number(((data.hourly.apparent_temperature[index] * 9) / 5 + 32).toFixed(1));
+      const tempF = Number(
+        ((data.hourly.apparent_temperature[index] * 9) / 5 + 32).toFixed(1),
+      );
 
       let obj = {
         temp: tempC,
         tempF: tempF,
         code: data.hourly.weather_code[index],
-        labelHour: labelHour
-      }
+        labelHour: labelHour,
+      };
       hourlyTemps.push(obj);
     }
-    
   }
 
-   return hourlyTemps;
-}
-
+  return hourlyTemps;
+};
 
 const weatherIconsMap: Record<number, string> = {
   0: "/icon-sunny.webp",
@@ -120,10 +122,46 @@ const weatherIconsMap: Record<number, string> = {
   95: "/icon-storm.webp",
   96: "/icon-storm.webp",
   99: "/icon-storm.webp",
-}
+};
 
 export const DetermineWeatherIcon = (code: number) => {
-
   return weatherIconsMap[code] || "./public/icon-fog.webp";
+};
 
-}
+export const DetermineDailyForecast = async (
+  latitude: number,
+  longitude: number,
+) => {
+  const resp = await fetch(
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`,
+  );
+  const data = await resp.json();
+
+  const dailyForecast: DailyForecastType[] = [];
+
+  for (let index = 0; index < data.daily.time.length; index++) {
+    const element = data.daily.time[index];
+    const formattedElement = new Date(element);
+
+    const day = formattedElement.toLocaleDateString("en-US", {
+      weekday: "short",
+    });
+
+    const tempMaxC = Number(data.daily.temperature_2m_max[index].toFixed(1));
+    const tempMinC = Number(data.daily.temperature_2m_min[index].toFixed(1));
+    const tempMaxF = Number(((data.daily.temperature_2m_max[index] * 9) / 5 + 32).toFixed(1));
+    const tempMinF = Number(((data.daily.temperature_2m_min[index] * 9) / 5 + 32).toFixed(1));
+    const code = data.daily.weathercode[index];
+
+    dailyForecast.push({
+      day,
+      tempMaxC,
+      tempMinC,
+      tempMaxF,
+      tempMinF,
+      code
+    });
+  }
+
+  return dailyForecast;
+};

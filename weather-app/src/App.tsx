@@ -3,6 +3,7 @@ import DailyForecast from "./components/DailyForecast"
 import Header from "./components/Header"
 import HourlyForecast from "./components/HourlyForecast"
 import Search from "./components/Search"
+import useDailyWeather from "./hooks/daily"
 import useWeather from "./hooks/data"
 import useHourlyWeather from "./hooks/hourly"
 import { useLocation } from "./hooks/location"
@@ -15,6 +16,7 @@ function App() {
   const {units, HandleUnitsChange} = useUnits(location);
   const {SetWeather, weather} = useWeather(location);
   const {hourly,daysName, SetCurrentDay} = useHourlyWeather(location);
+  const {dailyForecast} = useDailyWeather(location);
   
 
   return (
@@ -22,7 +24,7 @@ function App() {
       <Header handleUnitsChange={HandleUnitsChange} units={units}/>
       <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} setLocation={setLocation}/>
       <CurrentWeather weather={weather} units={units} />
-      <DailyForecast info={units}/>
+      <DailyForecast units={units} dailyForecast={dailyForecast}/>
       <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} daysName={daysName} setDay={SetCurrentDay}/>
     </div>
   )
