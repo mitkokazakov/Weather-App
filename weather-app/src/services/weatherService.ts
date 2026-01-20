@@ -13,14 +13,15 @@ export const TownWeatherDetermine = async (
 
   const date = new Date(time);
   date.setMinutes(0, 0, 0); // force HH:00
-  console.log(date);
 
-  const timeStr = date.toISOString().slice(0, 16);
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  console.log(date);
+  
+  const timeStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}` +
+  `T${pad(date.getHours())}:00`;
   const index = data.hourly.time.indexOf(timeStr);
 
-  console.log(timeStr);
-
-  console.log(index);
 
   const weather = {
     tempC: Number(data.current_weather.temperature.toFixed(1)),

@@ -33,14 +33,7 @@ const useWeather = (location: LocationType | null) => {
     feelsLikeF: 1,
   });
 
-  // useEffect(() => {
-  //   getLongitudeAndLatitude()
-  //     .then(setLocation)
-  //     .catch((err) => {
-  //       console.error("Location error:", err);
-  //       setLoading(false);
-  //     });
-  // }, []);
+  
 
   console.log(location?.latitude, location?.longitude);
   

@@ -15,6 +15,9 @@ const useDailyWeather = (location: LocationType | null) => {
   const [dailyForecast, setDailyForecast] = useState<DailyForecastType[] | null>(null);
 
   useEffect(() => {
+
+    if (!location) return;
+    
     async function FetchDailyForecast() {
       const data = await DetermineDailyForecast(location!.latitude, location!.longitude);
       setDailyForecast(data);
