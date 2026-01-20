@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { DetermineWeatherIcon } from '../services/weatherService'
 
 const CurrentWeather = ({weather, units}: {weather: any, units: any}) => {
