@@ -15,10 +15,7 @@ type WeatherType = {
   code: number;
 };
 
-
-
 const useWeather = (location: LocationType | null) => {
-
   // const [location, setLocation] = useState<LocationType | null>(null);
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState({
@@ -33,22 +30,28 @@ const useWeather = (location: LocationType | null) => {
     feelsLikeF: 1,
   });
 
-  
-
   console.log(location?.latitude, location?.longitude);
-  
 
   useEffect(() => {
-     if (!location) return;
+    if (!location) return;
 
     const currentWeatherFetch = async () => {
-      const weather = await TownWeatherDetermine(location?.latitude , location?.longitude);
+      try {
+        const weather = await TownWeatherDetermine(
+          location?.latitude,
+          location?.longitude,
+        );
 
-      setWeather(weather);
+        setWeather(weather);
+      } catch (e) {
+        console.error("Error fetching weather data:", e);
+      } finally {
+        setLoading(false);
+      }
     };
 
     currentWeatherFetch();
-  },[location]);
+  }, [location]);
 
   const SetWeather = (data: WeatherType) => {
     setWeather(data);
@@ -57,6 +60,7 @@ const useWeather = (location: LocationType | null) => {
   return {
     weather,
     SetWeather,
+    loading,
   };
 };
 

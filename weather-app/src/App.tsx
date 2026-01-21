@@ -14,7 +14,7 @@ const apiKey = "a5254b2031874dbeb49115909230304";
 function App() {
   const { location, setLocation } = useLocation();
   const {units, HandleUnitsChange} = useUnits(location);
-  const {SetWeather, weather} = useWeather(location);
+  const {SetWeather, weather, loading} = useWeather(location);
   const {hourly,daysName, SetCurrentDay} = useHourlyWeather(location);
   const {dailyForecast} = useDailyWeather(location);
   
@@ -23,7 +23,7 @@ function App() {
     <div className='w-full min-h-screen bg-[#03012d] p-4'>
       <Header handleUnitsChange={HandleUnitsChange} units={units}/>
       <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} setLocation={setLocation}/>
-      <CurrentWeather weather={weather} units={units} />
+      <CurrentWeather weather={weather} units={units} isLoading={loading}/>
       <DailyForecast units={units} dailyForecast={dailyForecast}/>
       <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} daysName={daysName} setDay={SetCurrentDay}/>
     </div>
