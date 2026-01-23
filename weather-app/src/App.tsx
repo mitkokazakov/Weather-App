@@ -24,7 +24,7 @@ function App() {
       <Header handleUnitsChange={HandleUnitsChange} units={units}/>
       <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} setLocation={setLocation}/>
       <CurrentWeather weather={weather} units={units} isLoading={loading}/>
-      <DailyForecast units={units} dailyForecast={dailyForecast}/>
+      <DailyForecast units={units} dailyForecast={dailyForecast} isLoading={loading}/>
       <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} daysName={daysName} setDay={SetCurrentDay}/>
     </div>
   )
