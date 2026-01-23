@@ -18,6 +18,7 @@ type SearchProps = {
   handleUnitsChange: (type: string, value: string) => void;
   setWeather: (data: WeatherType) => void;
   setLocation: (loc: { latitude: number; longitude: number }) => void;
+  setError: (error: string | null) => void;
 };
 
 type Location = {
@@ -31,6 +32,7 @@ const Search = ({
   handleUnitsChange,
   setWeather,
   setLocation,
+  setError
 }: SearchProps) => {
   const [isTyping, setIsTyping] = useState(false);
   const [city, setCity] = useState("");
@@ -43,7 +45,25 @@ const Search = ({
   }
 
   async function ClickSearchButton() {
-    handleUnitsChange("city", city);
+    const resp = await fetch(
+      `https://api.geoapify.com/v1/geocode/autocomplete?text=${city}&apiKey=${geoAPIKey}`,
+    );
+    const data = await resp.json();
+
+    console.log(data.features[0]);
+
+    if (data.features) {
+      const currentCityCoords = {
+        latitude: data?.features[0].properties.lat,
+        longitude: data?.features[0].properties.lon,
+      };
+
+      setLocation(currentCityCoords);
+    }
+    else{
+      setError("City not found. Please try again.");
+    }
+
     setIsTyping(false);
   }
 
@@ -62,7 +82,7 @@ const Search = ({
 
     const FetchTowns = async () => {
       const resp = await fetch(
-        `https://api.geoapify.com/v1/geocode/autocomplete?text=${city}&apiKey=${geoAPIKey}`
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${city}&apiKey=${geoAPIKey}`,
       );
       const data = await resp.json();
 
@@ -71,28 +91,13 @@ const Search = ({
         return;
       }
 
-      // const locations = data.features
-      //   .filter(
-      //     (f: any) =>
-      //       typeof f.properties.city === "string" &&
-      //       f.properties.city.trim().length > 2
-      //   )
-      //   .map((f: any) => ({
-      //     name: f.properties.city,
-      //     country: f.properties.country,
-      //     lat: f.properties.lat,
-      //     lon: f.properties.lon,
-      //   }));
-
-      // setLocations(locations);
-
       const uniqueMap = new Map<string, any>();
 
       data.features
         .filter(
           (f: any) =>
             typeof f.properties.city === "string" &&
-            f.properties.city.trim().length > 2
+            f.properties.city.trim().length > 2,
         )
         .forEach((f: any) => {
           const key = `${f.properties.city}-${f.properties.country}`;

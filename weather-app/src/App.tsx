@@ -1,3 +1,4 @@
+import { useState } from "react"
 import CurrentWeather from "./components/CurrentWeather"
 import DailyForecast from "./components/DailyForecast"
 import Header from "./components/Header"
@@ -18,12 +19,13 @@ function App() {
   const {hourly,daysName, SetCurrentDay} = useHourlyWeather(location);
   const {dailyForecast} = useDailyWeather(location);
   
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <div className='w-full min-h-screen bg-[#03012d] p-4'>
       <Header handleUnitsChange={HandleUnitsChange} units={units}/>
-      <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} setLocation={setLocation}/>
-      <CurrentWeather weather={weather} units={units} isLoading={loading}/>
+      <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} setLocation={setLocation} setError={setError}/>
+      {error ? <div className="text-red-500">{error}</div> : <CurrentWeather weather={weather} units={units} isLoading={loading}/>}
       <DailyForecast units={units} dailyForecast={dailyForecast} isLoading={loading}/>
       <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} daysName={daysName} setDay={SetCurrentDay}/>
     </div>
