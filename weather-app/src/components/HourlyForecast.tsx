@@ -15,7 +15,8 @@ const HourlyForecast = ({
   units,
   hourly,
   daysName,
-  setDay
+  setDay,
+  isLoading,
 }: {
   handleUnitsChange: (unit: string, value: string) => void;
   units: any;
@@ -25,6 +26,7 @@ const HourlyForecast = ({
     daysList: string[];
   };
   setDay: (day: string) => void;
+  isLoading: boolean;
 }) => {
   const [isHourlyDropdownOpen, setIsHourlyDropdownOpen] = useState(false);
 
@@ -48,7 +50,7 @@ const HourlyForecast = ({
 
         {isHourlyDropdownOpen && (
           <div className="w-54 bg-[#25253f] absolute top-10 right-0 rounded-lg px-2 py-3 flex flex-col justify-start items-start gap-2 duration-300 border border-slate-700">
-            { daysName.daysList.map((day, index) => (
+            {daysName.daysList.map((day, index) => (
               <p
                 className=" text-white hover:bg-[#2f2f49] py-2 px-2 w-full rounded-lg"
                 onClick={() => {
@@ -61,13 +63,12 @@ const HourlyForecast = ({
                 {day}
               </p>
             ))}
-            
           </div>
         )}
       </section>
 
       <section className="w-full flex flex-col justify-center items-center gap-4 mt-4">
-        {hourly.map((item: HourlyWeatherItem) => (
+        {/* {hourly.map((item: HourlyWeatherItem) => (
           <div
             className="w-full pr-4 pl-1 py-2 flex justify-between items-center gap-2 text-white bg-[#2f2f49] border border-slate-700 rounded-xl"
             key={item.labelHour}
@@ -86,7 +87,45 @@ const HourlyForecast = ({
               {units.temperature === "Celsius" ? item.temp : item.tempF}°
             </p>
           </div>
-        ))}
+        ))} */}
+
+        {Array.from({ length: 24 }).map((_, index) => {
+          const item = hourly?.[index];
+
+          return (
+            <div
+              key={index}
+              className="w-full pr-4 pl-1 py-2 flex justify-between items-center gap-2 bg-[#2f2f49] border border-slate-700 rounded-xl min-h-[52px]"
+            >
+              {isLoading || !item ? (
+                // 🔹 Skeleton row
+                <div className="w-full flex justify-between items-center animate-pulse">
+                  <div className="flex items-center gap-2">
+                    <div className="h-10 w-10 bg-white/20 rounded-full" />
+                    <div className="h-4 w-10 bg-white/20 rounded" />
+                  </div>
+                  <div className="h-4 w-6 bg-white/20 rounded" />
+                </div>
+              ) : (
+                // 🔹 Real row
+                <>
+                  <div className="flex justify-center items-center gap-2">
+                    <img
+                      src={DetermineWeatherIcon(item.code)}
+                      alt="weather"
+                      className="h-10"
+                    />
+                    <p className="text-lg">{item.labelHour}</p>
+                  </div>
+
+                  <p>
+                    {units.temperature === "Celsius" ? item.temp : item.tempF}°
+                  </p>
+                </>
+              )}
+            </div>
+          );
+        })}
       </section>
     </div>
   );

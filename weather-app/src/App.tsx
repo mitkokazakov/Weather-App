@@ -27,7 +27,7 @@ function App() {
       <Search handleUnitsChange={HandleUnitsChange} setWeather={SetWeather} setLocation={setLocation} setError={setError}/>
       {error ? <div className="text-red-500">{error}</div> : <CurrentWeather weather={weather} units={units} isLoading={loading}/>}
       <DailyForecast units={units} dailyForecast={dailyForecast} isLoading={loading}/>
-      <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} daysName={daysName} setDay={SetCurrentDay}/>
+      <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} daysName={daysName} setDay={SetCurrentDay} isLoading={loading}/>
     </div>
   )
 }
