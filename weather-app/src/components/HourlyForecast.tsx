@@ -35,7 +35,7 @@ const HourlyForecast = ({
   }
 
   return (
-    <div className="w-full bg-[#25253f] rounded-xl p-4 text-white flex flex-col lg:row-span-2 lg:row-start-1 lg:col-start-3 lg:max-h-[730px] justify-center lg:justify-start items-center mt-8 overflow-y-scroll">
+    <div className="w-full bg-[#25253f] rounded-xl p-4 text-white flex flex-col lg:row-span-2 lg:row-start-1 lg:col-start-3 lg:max-h-[730px] justify-center lg:justify-start items-center mt-8 ">
       <section className="w-full flex justify-between items-center relative">
         <h1 className="font-semibold text-xl tracking-widest">
           Hourly forecast
@@ -67,7 +67,7 @@ const HourlyForecast = ({
         )}
       </section>
 
-      <section className="w-full flex flex-col justify-center items-center gap-4 mt-4">
+      <section className="w-full flex flex-col justify-center items-center gap-4 mt-4  lg:overflow-y-scroll lg:pr-3 fancy-scroll mask-fade">
         
 
         {Array.from({ length: 24 }).map((_, index) => {
