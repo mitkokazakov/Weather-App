@@ -120,7 +120,7 @@ const Search = ({
   }, [city]);
 
   return (
-    <div className="w-full flex flex-col gap-2 mt-10 relative">
+    <div className="w-full flex flex-col md:flex-row md:justify-center md:items-center gap-2 md:gap-5 mt-10 relative">
       <div className="w-full relative">
         <img
           src="/public/icon-search.svg"
@@ -165,7 +165,7 @@ const Search = ({
       )}
 
       <button
-        className="bg-[#4455da] rounded-lg px-4 py-2 text-white hover:bg-[#4a4870] tracking-widest font-semibold mt-3"
+        className="bg-[#4455da] rounded-lg px-4 py-2 text-white hover:bg-[#4a4870] tracking-widest font-semibold mt-3 md:mt-0"
         onClick={ClickSearchButton}
       >
         Search

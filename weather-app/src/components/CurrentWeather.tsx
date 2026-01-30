@@ -12,7 +12,7 @@ const CurrentWeather = ({
   console.log(weather.code);
 
   return (
-    <div className="flex flex-col items-center gap-5 text-white mt-8">
+    <div className="flex flex-col lg:col-span-2 items-center gap-5 text-white mt-8">
       <section
         className={`w-full  rounded-xl ${isLoading ? "bg-[#3d3b5e] py-0" : "bg-[url(/public/bg-today-small.svg)] py-14"} flex flex-col items-center px-4  bg-cover bg-center`}
       >
@@ -54,8 +54,8 @@ const CurrentWeather = ({
         }
       </section>
 
-      <section className="w-full grid grid-cols-2 gap-4">
-        <div className=" p-4 flex flex-col items-start gap-5 bg-[#3d3b5e] rounded-xl">
+      <section className="w-full grid grid-cols-2 gap-4 lg:grid-cols-4 lg:grid-rows-1">
+        <div className=" p-4 flex flex-col items-start lg:justify-between gap-5 bg-[#3d3b5e] rounded-xl">
           <p className="font-light text-lg">Feels like</p>
           {
             isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">
@@ -67,14 +67,14 @@ const CurrentWeather = ({
           }
         </div>
 
-        <div className=" p-4 flex flex-col items-start gap-5 bg-[#3d3b5e] rounded-xl">
+        <div className=" p-4 flex flex-col items-start lg:justify-between gap-5 bg-[#3d3b5e] rounded-xl">
           <p className="font-light text-lg">Humidity</p>
           {
             isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">{weather.humidity}%</p>
           }
         </div>
 
-        <div className=" p-4 flex flex-col items-start gap-5 bg-[#3d3b5e] rounded-xl">
+        <div className=" p-4 flex flex-col items-start lg:justify-between gap-5 bg-[#3d3b5e] rounded-xl">
           <p className="font-light text-lg">Wind</p>
           {
             isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">
@@ -83,7 +83,7 @@ const CurrentWeather = ({
           }
         </div>
 
-        <div className=" p-4 flex flex-col items-start gap-5 bg-[#3d3b5e] rounded-xl">
+        <div className=" p-4 flex flex-col items-start lg:justify-between gap-5 bg-[#3d3b5e] rounded-xl">
           <p className="font-light text-lg">Precipitation</p>
           {
             isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">

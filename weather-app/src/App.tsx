@@ -28,9 +28,10 @@ function App() {
         setLocation={setLocation}
         setError={setError}
       />
-      {/* {error ? <div className="text-white text-4xl font-bold tracking-widest">{error}</div> : <CurrentWeather weather={weather} units={units} isLoading={loading}/>}
-      <DailyForecast units={units} dailyForecast={dailyForecast} isLoading={loading}/>
-      <HourlyForecast handleUnitsChange={HandleUnitsChange} units={units} hourly={hourly} daysName={daysName} setDay={SetCurrentDay} isLoading={loading}/> */}
+      
+      <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-5  overflow-hidden">
+
+      
 
       {error ? (
         <div className="text-white text-3xl font-semibold tracking-widest text-center mt-16">
@@ -54,6 +55,7 @@ function App() {
           />
         </>
       )}
+      </div>
     </div>
   );
 }

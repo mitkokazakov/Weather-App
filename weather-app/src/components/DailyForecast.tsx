@@ -11,18 +11,18 @@ const DailyForecast = ({
   isLoading: boolean;
 }) => {
   return (
-    <div className="w-full mt-5">
+    <div className="w-full mt-5 lg:mt-0 lg:col-start-1 lg:col-end-3 lg:col-span-2 lg:self-end ">
       <h1 className="text-white font-semibold text-xl mb-3 tracking-widest">
         Daily forecast
       </h1>
 
-      <section className="w-full grid grid-cols-3 gap-4">
+      <section className="w-full grid grid-cols-3 lg:grid-cols-7 lg:grid-rows-1 gap-4">
         {Array.from({length: 7}).map((_, index) =>{ 
           const day =  dailyForecast?.[index];
 
           return (
             <div
-              className="p-4 flex flex-col justify-center items-center gap-2 text-white bg-[#3d3b5e] rounded-xl"
+              className="p-4 flex flex-col  justify-center items-center gap-2 text-white bg-[#3d3b5e] rounded-xl"
               key={index}
             >
               
