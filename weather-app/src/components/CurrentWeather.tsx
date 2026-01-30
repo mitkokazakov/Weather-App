@@ -47,9 +47,9 @@ const CurrentWeather = ({
           <img
             src="/public/icon-loading.svg"
             alt="weather"
-            className="h-30 mt-2"
+            className="h-30 mt-2 animate-spin"
           />
-          <h1 className="text-2xl tracking-widest">Loading...</h1>
+          <h1 className="text-2xl tracking-widest animate-pulse">Loading...</h1>
         </div> : null
         }
       </section>
