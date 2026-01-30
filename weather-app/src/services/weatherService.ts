@@ -31,7 +31,9 @@ export const TownWeatherDetermine = async (
     windMph: Number((data.current_weather.windspeed / 1.609).toFixed(1)),
 
     precipitationMm: Number(data.hourly.precipitation[index].toFixed(1)),
-    precipitationIn: Number(
+    precipitationIn: data.hourly.precipitation[index] < 1 ? Number(
+      (data.hourly.precipitation[index] / 25.4).toFixed(3),
+    ) : Number(
       (data.hourly.precipitation[index] / 25.4).toFixed(1),
     ),
 
