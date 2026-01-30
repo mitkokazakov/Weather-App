@@ -78,7 +78,7 @@ const CurrentWeather = ({
           <p className="font-light text-lg">Wind</p>
           {
             isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">
-            {units.windSpeed === "km/h" ? weather.windKmh : weather.windMph} mph
+            {units.windSpeed === "km/h" ? weather.windKmh : weather.windMph} {units.windSpeed === "km/h" ? "km/h" : "mph"}
           </p>
           }
         </div>
@@ -89,8 +89,8 @@ const CurrentWeather = ({
             isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">
             {units.precipitation === "Millimeters (mm)"
               ? weather.precipitationMm
-              : weather.precipitationIn}{" "}
-            in
+              : weather.precipitationIn}
+            {units.precipitation === "Millimeters (mm)" ? " mm" : " in"}
           </p>
           }
         </div>

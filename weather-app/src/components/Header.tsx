@@ -24,11 +24,11 @@ const Header = ({handleUnitsChange, units}: {handleUnitsChange: (unit: string, v
             <img src="/public/icon-dropdown.svg" alt="icon" />
         </div>
 
-        {isClickedUnits && (<div className="bg-[#25253f] absolute top-10 right-0 rounded-lg px-2 py-3 flex flex-col justify-start items-start gap-2 duration-300 z-10">
+        {isClickedUnits && (<div className="bg-[#25253f] w-45 absolute top-10 right-0 rounded-lg px-2 py-3 flex flex-col justify-start items-start gap-2 duration-300 z-10">
             <p className="text-white">Switch to Imperial</p>
 
 
-            <div className="flex flex-col justify-start items-start gap-2  divide-y-[0.1px] divide-slate-300">
+            <div className=" w-full flex flex-col justify-start items-start gap-2  divide-y-[0.1px] divide-slate-300">
                 <div className=" flex flex-col w-full">
                 <p className="text-sm text-slate-300">Temperature</p>
                 <p className={`text-white font-semibold py-1 flex justify-between ${units.temperature === "Celsius" ? "bg-[#2f2f49] rounded-lg px-2" : ""}`} onClick={() => {handleUnitsChange("temperature","Celsius"); ; HandleUnitsClick()}}>Celsius (C) {units.temperature === "Celsius" ? <img src="./public/icon-checkmark.svg" alt="checkmark" /> : null}</p>

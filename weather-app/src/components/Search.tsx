@@ -50,9 +50,9 @@ const Search = ({
     );
     const data = await resp.json();
 
-    console.log(data.features[0]);
+    console.log(data.features);
 
-    if (data.features) {
+    if (data.features && data.features.length > 0) {
       const currentCityCoords = {
         latitude: data?.features[0].properties.lat,
         longitude: data?.features[0].properties.lon,
@@ -150,6 +150,7 @@ const Search = ({
                   setIsTyping(false);
                   setCity("");
                   setLocation({ latitude: l.lat, longitude: l.lon });
+                  setError(null)
                 }}
               >
                 <p className="font-semibold text-lg" key={l.name + index}>
