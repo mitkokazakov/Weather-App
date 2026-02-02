@@ -19,7 +19,7 @@ const CurrentWeather = ({
         {isLoading ? null : (
           <>
             <div className="lg:flex lg:flex-col ">
-              <h1 className="font-bold text-3xl tracking-widest">
+              <h1 className="font-bold text-3xl md:text-xl lg:text-2xl xl:text-3xl tracking-widest">
                 {units.city}, {units.country}
               </h1>
               <h4 className="font-light text-lg mt-4 tracking-widest">
@@ -31,10 +31,10 @@ const CurrentWeather = ({
               <img
                 src={DetermineWeatherIcon(weather.code)}
                 alt="weather"
-                className="h-30 mt-2"
+                className="h-30 md:h-24 lg:h-24 mt-2"
               />
 
-              <p className="font-bold text-8xl">
+              <p className="font-bold text-8xl md:text-6xl lg:text-6xl xl:text-8xl">
                 {units.temperature === "Celsius"
                   ? weather.feelsLikeC
                   : weather.feelsLikeF}

@@ -20,7 +20,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   return (
-    <div className="w-full min-h-screen bg-[#03012d] p-4 lg:px-28 lg:py-10">
+    <div className="w-full min-h-screen bg-[#03012d] p-4  lg:px-4 xl:px-26 lg:py-10">
       <Header handleUnitsChange={HandleUnitsChange} units={units} />
       <Search
         handleUnitsChange={HandleUnitsChange}

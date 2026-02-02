@@ -121,7 +121,8 @@ const Search = ({
 
   return (
     <div className="w-full flex flex-col md:flex-row md:justify-center md:items-center gap-2 md:gap-5 mt-10 relative">
-      <div className="w-full relative lg:w-[30%]">
+      <div className="lg:w-[30%] flex flex-col gap-3  items-center justify-center relative">
+        <div className="w-full relative ">
         <img
           src="/public/icon-search.svg"
           alt=""
@@ -137,7 +138,10 @@ const Search = ({
       </div>
 
       {isTyping && (
-        <div className="w-full bg-[#3d3b5e]   rounded-lg flex flex-col justify-center items-start text-white font-semibold tracking-widest duration-300 p-4">
+        <div className="md:absolute md:top-full md:left-0 mt-2 w-full
+             bg-[#3d3b5e] z-50 rounded-lg
+             flex flex-col text-white  
+             p-2 shadow-lg  font-semibold tracking-widest duration-300 ">
           {locations &&
             locations.map((l: any, index: number) => (
               <div
@@ -163,6 +167,7 @@ const Search = ({
             ))}
         </div>
       )}
+      </div>
 
       <button
         className="bg-[#4455da] rounded-lg px-4 py-2 text-white hover:bg-[#4a4870] tracking-widest font-semibold mt-3 md:mt-0"

@@ -49,7 +49,7 @@ const HourlyForecast = ({
         </div>
 
         {isHourlyDropdownOpen && (
-          <div className="w-54 bg-[#25253f] absolute top-10 right-0 rounded-lg px-2 py-3 flex flex-col justify-start items-start gap-2 duration-300 border border-slate-700">
+          <div className="w-54 bg-[#25253f] absolute top-10 z-10 right-0 rounded-lg px-2 py-3 flex flex-col justify-start items-start gap-2 duration-300 border border-slate-700">
             {daysName.daysList.map((day, index) => (
               <p
                 className=" text-white hover:bg-[#2f2f49] py-2 px-2 w-full rounded-lg"
@@ -67,7 +67,7 @@ const HourlyForecast = ({
         )}
       </section>
 
-      <section className="w-full flex flex-col justify-center items-center gap-4 mt-4  lg:overflow-y-scroll lg:pr-3 fancy-scroll mask-fade">
+      <section className="w-full flex flex-col  items-center gap-4 mt-4  lg:overflow-y-scroll lg:pr-3 fancy-scroll mask-fade">
         
 
         {Array.from({ length: 24 }).map((_, index) => {
@@ -76,7 +76,7 @@ const HourlyForecast = ({
           return (
             <div
               key={index}
-              className="w-full pr-4 pl-1 py-2 flex justify-between items-center gap-2 bg-[#2f2f49] border border-slate-700 rounded-xl min-h-[52px]"
+              className="w-full pr-4 pl-1 py-2 flex justify-between items-center gap-2 bg-[#2f2f49] border border-slate-700 rounded-xl min-h-13"
             >
               {isLoading || !item ? (
                 // 🔹 Skeleton row
