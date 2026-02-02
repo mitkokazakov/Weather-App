@@ -14,85 +14,98 @@ const CurrentWeather = ({
   return (
     <div className="flex flex-col lg:col-span-2 items-center gap-5 text-white mt-8">
       <section
-        className={`w-full  rounded-xl ${isLoading ? "bg-[#3d3b5e] py-0" : "bg-[url(/public/bg-today-small.svg)] py-14"} flex flex-col items-center px-4  bg-cover bg-center`}
+        className={`w-full  rounded-xl ${isLoading ? "bg-[#3d3b5e] py-0" : "bg-[url(/public/bg-today-small.svg)] lg:bg-[url(/public/bg-today-large.svg)] py-14 lg:py-26"} flex flex-col lg:flex-row lg:justify-between lg:px-8 items-center px-4  bg-cover bg-center`}
       >
-        {
-            isLoading ? null : <>
-          <h1 className="font-bold text-3xl tracking-widest">
-            {units.city}, {units.country}
-          </h1>
-          <h4 className="font-light text-lg mt-4 tracking-widest">
-            {units.day}
-          </h4>
+        {isLoading ? null : (
+          <>
+            <div className="lg:flex lg:flex-col ">
+              <h1 className="font-bold text-3xl tracking-widest">
+                {units.city}, {units.country}
+              </h1>
+              <h4 className="font-light text-lg mt-4 tracking-widest">
+                {units.day}
+              </h4>
+            </div>
 
-          <div className="flex justify-center items-center gap-5 mt-5">
+            <div className="flex justify-center items-center gap-5 mt-5">
+              <img
+                src={DetermineWeatherIcon(weather.code)}
+                alt="weather"
+                className="h-30 mt-2"
+              />
+
+              <p className="font-bold text-8xl">
+                {units.temperature === "Celsius"
+                  ? weather.feelsLikeC
+                  : weather.feelsLikeF}
+                °
+              </p>
+            </div>
+          </>
+        )}
+
+        {isLoading ? (
+          <div className="w-full min-h-85 flex flex-col gap-5 justify-center items-center">
             <img
-              src={DetermineWeatherIcon(weather.code)}
+              src="/public/icon-loading.svg"
               alt="weather"
-              className="h-30 mt-2"
+              className="h-30 mt-2 animate-spin"
             />
-
-            <p className="font-bold text-8xl">
-              {units.temperature === "Celsius"
-                ? weather.feelsLikeC
-                : weather.feelsLikeF}
-              °
-            </p>
+            <h1 className="text-2xl tracking-widest animate-pulse">
+              Loading...
+            </h1>
           </div>
-        </>
-        }
-
-        {
-            isLoading ? <div className="w-full min-h-85 flex flex-col gap-5 justify-center items-center">
-          <img
-            src="/public/icon-loading.svg"
-            alt="weather"
-            className="h-30 mt-2 animate-spin"
-          />
-          <h1 className="text-2xl tracking-widest animate-pulse">Loading...</h1>
-        </div> : null
-        }
+        ) : null}
       </section>
 
       <section className="w-full grid grid-cols-2 gap-4 lg:grid-cols-4 lg:grid-rows-1">
         <div className=" p-4 flex flex-col items-start lg:justify-between gap-5 bg-[#3d3b5e] rounded-xl">
           <p className="font-light text-lg">Feels like</p>
-          {
-            isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">
-            {units.temperature === "Celsius"
-              ? weather.feelsLikeC
-              : weather.feelsLikeF}
-            °
-          </p>
-          }
+          {isLoading ? (
+            <p className="text-3xl"> - </p>
+          ) : (
+            <p className="text-3xl">
+              {units.temperature === "Celsius"
+                ? weather.feelsLikeC
+                : weather.feelsLikeF}
+              °
+            </p>
+          )}
         </div>
 
         <div className=" p-4 flex flex-col items-start lg:justify-between gap-5 bg-[#3d3b5e] rounded-xl">
           <p className="font-light text-lg">Humidity</p>
-          {
-            isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">{weather.humidity}%</p>
-          }
+          {isLoading ? (
+            <p className="text-3xl"> - </p>
+          ) : (
+            <p className="text-3xl">{weather.humidity}%</p>
+          )}
         </div>
 
         <div className=" p-4 flex flex-col items-start lg:justify-between gap-5 bg-[#3d3b5e] rounded-xl">
           <p className="font-light text-lg">Wind</p>
-          {
-            isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">
-            {units.windSpeed === "km/h" ? weather.windKmh : weather.windMph} {units.windSpeed === "km/h" ? "km/h" : "mph"}
-          </p>
-          }
+          {isLoading ? (
+            <p className="text-3xl"> - </p>
+          ) : (
+            <p className="text-3xl">
+              {units.windSpeed === "km/h" ? weather.windKmh : weather.windMph}{" "}
+              {units.windSpeed === "km/h" ? "km/h" : "mph"}
+            </p>
+          )}
         </div>
 
         <div className=" p-4 flex flex-col items-start lg:justify-between gap-5 bg-[#3d3b5e] rounded-xl">
           <p className="font-light text-lg">Precipitation</p>
-          {
-            isLoading ? <p className="text-3xl"> - </p> : <p className="text-3xl">
-            {units.precipitation === "Millimeters (mm)"
-              ? weather.precipitationMm
-              : weather.precipitationIn}
-            {units.precipitation === "Millimeters (mm)" ? " mm" : " in"}
-          </p>
-          }
+          {isLoading ? (
+            <p className="text-3xl"> - </p>
+          ) : (
+            <p className="text-3xl">
+              {units.precipitation === "Millimeters (mm)"
+                ? weather.precipitationMm
+                : weather.precipitationIn}
+              {units.precipitation === "Millimeters (mm)" ? " mm" : " in"}
+            </p>
+          )}
         </div>
       </section>
     </div>

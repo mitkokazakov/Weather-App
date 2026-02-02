@@ -121,7 +121,7 @@ const Search = ({
 
   return (
     <div className="w-full flex flex-col md:flex-row md:justify-center md:items-center gap-2 md:gap-5 mt-10 relative">
-      <div className="w-full relative">
+      <div className="w-full relative lg:w-[30%]">
         <img
           src="/public/icon-search.svg"
           alt=""
