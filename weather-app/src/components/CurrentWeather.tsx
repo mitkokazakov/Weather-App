@@ -64,7 +64,7 @@ const CurrentWeather = ({
           {isLoading ? (
             <p className="text-3xl"> - </p>
           ) : (
-            <p className="text-3xl">
+            <p className="text-2xl">
               {units.temperature === "Celsius"
                 ? weather.feelsLikeC
                 : weather.feelsLikeF}
@@ -78,7 +78,7 @@ const CurrentWeather = ({
           {isLoading ? (
             <p className="text-3xl"> - </p>
           ) : (
-            <p className="text-3xl">{weather.humidity}%</p>
+            <p className="text-2xl">{weather.humidity}%</p>
           )}
         </div>
 
@@ -87,7 +87,7 @@ const CurrentWeather = ({
           {isLoading ? (
             <p className="text-3xl"> - </p>
           ) : (
-            <p className="text-3xl">
+            <p className="text-2xl">
               {units.windSpeed === "km/h" ? weather.windKmh : weather.windMph}{" "}
               {units.windSpeed === "km/h" ? "km/h" : "mph"}
             </p>
@@ -99,7 +99,7 @@ const CurrentWeather = ({
           {isLoading ? (
             <p className="text-3xl"> - </p>
           ) : (
-            <p className="text-3xl">
+            <p className="text-2xl">
               {units.precipitation === "Millimeters (mm)"
                 ? weather.precipitationMm
                 : weather.precipitationIn}

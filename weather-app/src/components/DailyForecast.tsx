@@ -22,7 +22,7 @@ const DailyForecast = ({
 
           return (
             <div
-              className="p-4 flex flex-col  justify-center items-center gap-2 text-white bg-[#3d3b5e] rounded-xl"
+              className="p-4 md:p-2 flex flex-col  justify-center items-center gap-2 text-white bg-[#3d3b5e] rounded-xl"
               key={index}
             >
               
@@ -49,13 +49,13 @@ const DailyForecast = ({
             />
 
             <div className="w-full flex justify-between">
-              <p>
+              <p className="md:text-xs xl:text-base">
                 {units.temperature === "Celsius"
                   ? day.tempMaxC
                   : day.tempMaxF}
                 °
               </p>
-              <p>
+              <p className="md:text-xs xl:text-base">
                 {units.temperature === "Celsius"
                   ? day.tempMinC
                   : day.tempMinF}
