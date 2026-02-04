@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DetermineWeatherIcon } from "../services/weatherService";
 
 type HourlyWeatherItem = {
@@ -35,7 +35,7 @@ const HourlyForecast = ({
   }
 
   return (
-    <div className="w-full bg-[#25253f] rounded-xl p-4 text-white flex flex-col lg:row-span-2 lg:row-start-1 lg:col-start-3 lg:max-h-[730px] justify-center lg:justify-start items-center mt-8 ">
+    <div className="w-full bg-[#25253f] rounded-xl p-4 text-white flex flex-col lg:row-span-2 lg:row-start-1 lg:col-start-3 lg:max-h-182.5 justify-center lg:justify-start items-center mt-8 ">
       <section className="w-full flex justify-between items-center relative">
         <h1 className="font-semibold text-xl tracking-widest">
           Hourly forecast
@@ -50,7 +50,7 @@ const HourlyForecast = ({
 
         {isHourlyDropdownOpen && (
           <div className="w-54 bg-[#25253f] absolute top-10 z-10 right-0 rounded-lg px-2 py-3 flex flex-col justify-start items-start gap-2 duration-300 border border-slate-700">
-            {daysName.daysList.map((day, index) => (
+            {daysName.daysList.map((day) => (
               <p
                 className=" text-white hover:bg-[#2f2f49] py-2 px-2 w-full rounded-lg"
                 onClick={() => {

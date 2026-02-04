@@ -11,7 +11,7 @@ type HourlyWeatherItem = {
 
 const useHourlyWeather = (location: LocationType | null) => {
   const [hourly, setHourly] = useState<HourlyWeatherItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  //const [loading, setLoading] = useState(true);
 
   const [daysName, setDaysName] = useState({
     currentDay: "",
@@ -57,14 +57,14 @@ const useHourlyWeather = (location: LocationType | null) => {
     if (!location) return;
 
     const fetchHourly = async () => {
-      setLoading(true);
+      //setLoading(true);
       const data = await DetermineHourlyForecast(
         location.latitude,
         location.longitude,
         daysName.currentDay
       );
       setHourly(data);
-      setLoading(false);
+      //setLoading(false);
     };
 
     fetchHourly();
