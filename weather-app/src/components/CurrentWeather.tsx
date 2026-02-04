@@ -47,7 +47,7 @@ const CurrentWeather = ({
         {isLoading ? (
           <div className="w-full min-h-85 flex flex-col gap-5 justify-center items-center">
             <img
-              src="/public/icon-loading.svg"
+              src="/icon-loading.svg"
               alt="weather"
               className="h-30 mt-2 animate-spin"
             />

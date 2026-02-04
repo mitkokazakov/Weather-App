@@ -15,13 +15,13 @@ const Header = ({handleUnitsChange, units}: {handleUnitsChange: (unit: string, v
       
       <section className="w-full flex justify-between items-center relative">
         <div>
-            <img src="/public/logo.svg" alt="logo"  className="h-7"/>
+            <img src="/logo.svg" alt="logo"  className="h-7"/>
         </div>
 
         <div className="bg-[#2f2f49] flex justify-center items-center gap-2 px-3 py-1 rounded-lg cursor-pointer" onClick={HandleUnitsClick}>
-            <img src="/public/icon-units.svg" alt="settings" />
+            <img src="/icon-units.svg" alt="settings" />
             <p className="text-white">Units</p>
-            <img src="/public/icon-dropdown.svg" alt="icon" />
+            <img src="/icon-dropdown.svg" alt="icon" />
         </div>
 
         {isClickedUnits && (<div className="bg-[#25253f] w-45 absolute top-10 right-0 rounded-lg px-2 py-3 flex flex-col justify-start items-start gap-2 duration-300 z-10">
