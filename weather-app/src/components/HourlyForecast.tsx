@@ -45,7 +45,7 @@ const HourlyForecast = ({
           onClick={HandleHourlyDropdown}
         >
           <p className="text-white">{daysName.currentDay}</p>
-          <img src="/public/icon-dropdown.svg" alt="icon" />
+          <img src="/icon-dropdown.svg" alt="icon" />
         </div>
 
         {isHourlyDropdownOpen && (
