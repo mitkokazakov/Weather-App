@@ -14,7 +14,7 @@ const CurrentWeather = ({
   return (
     <div className="flex flex-col lg:col-span-2 items-center gap-5 text-white mt-8">
       <section
-        className={`w-full  rounded-xl ${isLoading ? "bg-[#3d3b5e] py-0" : "bg-[url(/public/bg-today-small.svg)] lg:bg-[url(/public/bg-today-large.svg)] py-14 lg:py-26"} flex flex-col lg:flex-row lg:justify-between lg:px-8 items-center px-4  bg-cover bg-center`}
+        className={`w-full  rounded-xl ${isLoading ? "bg-[#3d3b5e] py-0" : "bg-[url(/bg-today-small.svg)] lg:bg-[url(/bg-today-large.svg)] py-14 lg:py-26"} flex flex-col lg:flex-row lg:justify-between lg:px-8 items-center px-4  bg-cover bg-center`}
       >
         {isLoading ? null : (
           <>
