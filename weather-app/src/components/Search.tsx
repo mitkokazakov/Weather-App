@@ -124,7 +124,7 @@ const Search = ({
       <div className="lg:w-[30%] flex flex-col gap-3  items-center justify-center relative">
         <div className="w-full relative ">
         <img
-          src="/public/icon-search.svg"
+          src="/icon-search.svg"
           alt=""
           className="absolute left-3 top-[50%] translate-y-[-50%]"
         />
